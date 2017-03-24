@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"bytes"
 	"net/http"
+	"net/url"
 )
 
 type LogMesg struct {
@@ -24,6 +25,19 @@ func PostToMonitor(log LogMesg, API_URL string) {
 	//data := url.Values{}
 	//data.Set("params", PARAMS)
 	req, _ := http.NewRequest("POST", API_URL, bytes.NewBufferString(string(jsonString)))
+	client.Do(req)
+
+}
+
+// post status Monitor
+func PostStatusToMonitor(serviceid string, status string, API_URL string) {
+	client := &http.Client{
+	}
+	data := url.Values{}
+	data.Set("service_id", serviceid)
+	data.Set("log", status)
+	req, _ := http.NewRequest("POST", API_URL, bytes.NewBufferString(data.Encode())) // <-- URL-encoded payload
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	client.Do(req)
 
 }

@@ -31,6 +31,10 @@ func main(){
     var serviceId = "8eeb3c67-fd93-11e6-947e-0cc47a7e0172"
     logErro := monitlog.LogMesg{serviceId, monitlog.ERROR, "your error message"}
 	monitlog.PostToMonitor(logErro, API_LOG)
+    // post status
+    API_URL_STATUS := ...// your API status
+    status := "running"
+    PostStatusToMonitor(serviceId, status, API_URL_STATUS)
 
 }
 ```
